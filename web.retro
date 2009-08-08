@@ -8,7 +8,7 @@ create #id 0 ,    create ids 20 array
 create #class 0 , create classes 20 array
 
 : $, here 4 + literal, keepString ;
-macro: ~ 126 accept tib $, ` type ;
+compiler: ~ 126 accept tib $, ` type ;
 : +id dup getLength 1+ push #id @ 20 * ids + pop copy 1 #id +! ;
 : +class dup getLength 1+ push #class @ 20 * classes + pop copy 1 #class +! ;
 : class= ."  class='" ;
@@ -18,12 +18,12 @@ macro: ~ 126 accept tib $, ` type ;
 : .id #id @ 0; 1- 20 * ids + ` id= $, ` type ` x 1 #id -! ;
 : .tag #tags @ 1- 20 * tags + here 4 + literal, keepString ` type ;
 : +tag dup getLength 1+ push #tags @ 20 * tags + pop copy 1 #tags +! ;
-macro: id: 32 accept tib +id ;
-macro: class: 32 accept tib +class ;
+compiler: id: 32 accept tib +id ;
+compiler: class: 32 accept tib +class ;
 : < ." <" ;
 : > ." >" ;
 : / ." /" ;
 : <> ` < .tag .id .class ` > ;
 : </> ` < ` / .tag ` > ;
 compiler: ( 32 accept tib +tag <> ;
-macro: ) </> 1 #tags -! ;
+compiler: ) </> 1 #tags -! ;
