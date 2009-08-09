@@ -61,10 +61,15 @@ compiler: ) </> 1 #tags -! ;
 : (a0) ." <a href='" ;
 : (a1) ." '>" ;
 compiler: [a ` (a0) 32 accept tib $, ` type ` (a1) s" a" +tag ;
+: ] ." </a>" ;
+
 : (c0) ." <link rel='stylesheet' href='" ;
 : (c1) ." '>" ;
 compiler: css: ` (c0) 32 accept tib $, ` type ` (c1) ;
-: ] ." </a>" ;
+
+: (s0) ." <script src='" ;
+: (s1) ." '></script>" ;
+compiler: script: ` (s0) 32 accept tib $, ` type ` (s1) ;
 
 : render ['] emit :devector ;
 : end ['] drop ['] emit :is save bye ;
@@ -72,7 +77,5 @@ compiler: css: ` (c0) 32 accept tib $, ` type ` (c1) ;
 : blank ; ' blank is ok
 : xxx ['] drop ['] emit :is ;
 macro: ; ` xxx ` ;; ['] [ execute ;; [
-
-
 macro: | 124 accept ;
 save bye
