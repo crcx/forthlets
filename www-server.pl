@@ -167,7 +167,7 @@ sub main_loop {
 #    }
 #    cat $file, $mime_type, $method || logerr 500, "$file: $!";
 
-open my $fh_echo, '-|' or exec "echo render $file bye >foo" or die "echo failed: $!\n";
+open my $fh_echo, '-|' or exec "echo $file bye >foo" or die "echo failed: $!\n";
 close $fh_echo;
 
 #$r = "\Qecho render $file bye >foo";

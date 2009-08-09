@@ -177,4 +177,5 @@ compiler: ~
 : blank ; ' blank is ok
 : xxx ['] drop ['] emit :is ;
 macro: ; ` xxx ` ;; ['] [ execute ;; [
+: : create ['] .word last @ d->class ! ['] render compile compiler on ;
 xxx save bye
