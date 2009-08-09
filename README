@@ -21,6 +21,7 @@ Features:
 A simple example:
 
 : /
+ render
  ( html
    ( head ( title ." Demo Page" ) )
    ( body

@@ -1,78 +1,175 @@
-( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
-( Web Framework for Retro                                     )
-( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
-: array for 20 allot next ;
+macro: | 124 accept ;
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| Web Framework for Retro                                     |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| Note: since this uses ( ) for the markups, we use vertical  |
+| bars for comments (including stack comments) throughout.    |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 
-create #atts 0 ,  create atts 20 array
-create #tags 0 ,  create tags 20 array
-create #id 0 ,    create ids 20 array
-create #class 0 , create classes 20 array
 
-: $, ( $- )
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| Some nifty helper functions                                 |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+: $,
+  | $- |
   here 4 + literal, keepString drop ;
 
-compiler: ~ ( "- )
+compiler: ~
+  | "- |
   126 accept tib $, ` type ;
 
-: +id ( $- )
-  dup getLength 1+ push #id @ 20 * ids + pop copy 1 #id +! ;
+: array
+  | n- |
+  for 20 allot next ;
 
-: +class ( $- )
-  dup getLength 1+ push #class @ 20 * classes + pop copy 1 #class +! ;
+: <
+  | - |
+  ." <" ;
 
-: +att ( $- )
-  dup getLength 1+ push #atts @ 20 * atts + pop copy 1 #atts +! ;
+: >
+  | - |
+  ." >" ;
 
-: class= ( - )
-  ."  class='" ;
+: /
+  | - |
+  ." /" ;
 
-: id= ( - )
-  ."  id='" ;
-
-: x ( - )
+: x
+  | - |
   ." '" ;
 
-compiler: attr: 32 accept tib +att ;
 
-: .class ( - )
-  #class @ 0; 1- 20 * classes + ` class= $, ` type ` x 1 #class -! ;
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| id: name                                                    |
+| This stuff is used to build the id field for HTML elements  |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  create #id 0 ,    create ids 20 array
 
-: .att ( - )
-  #atts @ 0; 1- 20 * atts 32 literal, ` emit $, ` type 1 #atts -! ;
+  : +id
+    | $- |
+    dup getLength 1+ push #id @ 20 * ids + pop copy 1 #id +! ;
 
-: .id ( - )
-   #id @ 0; 1- 20 * ids + ` id= $, ` type ` x 1 #id -! ;
+  : id=
+    | - |
+    ."  id='" ;
+---reveal---
+  compiler: id:
+    | "- |
+    32 accept tib +id ;
 
-: .tag ( - )
-  #tags @ 1- 20 * tags + $, ` type ;
+  : .id
+    | - |
+    #id @ 0; 1- 20 * ids + ` id= $, ` type ` x 1 #id -! ;
 
-: +tag ( - )
-  dup getLength 1+ push #tags @ 20 * tags + pop copy 1 #tags +! ;
+}}
 
-compiler: id: 32 accept tib +id ;
-compiler: class: 32 accept tib +class ;
 
-: < ." <" ;
-: > ." >" ;
-: / ." /" ;
-: <> ` < .tag .id .class .att ` > ;
-: </> ` < ` / .tag ` > ;
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| class: name                                                 |
+| This is used to build the class field for HTML elements     |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  create #class 0 , create classes 20 array
 
-compiler: ( 32 accept tib +tag <> ;
-compiler: ) </> 1 #tags -! ;
+  : +class
+    | $- |
+    dup getLength 1+ push #class @ 20 * classes + pop copy 1 #class +! ;
 
-: (a0) ." <a href='" ;
-: (a1) ." '>" ;
-compiler: [a ` (a0) 32 accept tib $, ` type ` (a1) ;
-: ] ." </a>" ;
+  : class=
+    | - |
+    ."  class='" ;
+---reveal---
+  compiler: class:
+    | "- |
+    32 accept tib +class ;
 
-: (c0) ." <link rel='stylesheet' href='" ;
-: (c1) ." '>" ;
-compiler: css: ` (c0) 32 accept tib $, ` type ` (c1) ;
+  : .class
+    | - |
+    #class @ 0; 1- 20 * classes + ` class= $, ` type ` x 1 #class -! ;
+}}
 
-: (s0) ." <script src='" ;
-: (s1) ." '></script>" ;
-compiler: script: ` (s0) 32 accept tib $, ` type ` (s1) ;
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| attr: name=value                                            |
+| This is used to add arbitrary attributes to an HTML element |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  create #atts 0 ,  create atts 20 array
+
+  : +att
+    | $- |
+    dup getLength 1+ push #atts @ 20 * atts + pop copy 1 #atts +! ;
+---reveal---
+  compiler: attr:
+    | "- |
+    32 accept tib +att ;
+
+  : .att
+    | - |
+    #atts @ 0; 1- 20 * atts 32 literal, ` emit $, ` type 1 #atts -! ;
+}}
+
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| tag: tag                                                    |
+| Handle HTML tag creation.                                   |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  create #tags 0 ,  create tags 20 array
+
+  : +tag
+    | - |
+    dup getLength 1+ push #tags @ 20 * tags + pop copy 1 #tags +! ;
+
+  : tag:
+    | "- |
+    32 accept tib +tag ;
+
+  : .tag
+    | - |
+    #tags @ 1- 20 * tags + $, ` type ;
+
+  : <>
+    | - |
+    ` < .tag .id .class .att ` > ;
+
+  : </>
+    | - |
+    ` < ` / .tag ` > ;
+---reveal---
+  compiler: (
+    | - |
+    tag: <> ;
+
+  compiler: )
+    | - |
+    </> 1 #tags -! ;
+}}
+
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| Special Elements                                            |
+|                                                             |
+|   css: url                                                  |
+|   script: url                                               |
+|   [a url .... ]                                             |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  : (a0) ." <a href='" ;
+  : (a1) ." '>" ;
+
+  : (c0) ." <link rel='stylesheet' href='" ;
+  : (c1) ." '>" ;
+  : (s0) ." <script src='" ;
+  : (s1) ." '></script>" ;
+---reveal---
+  compiler: [a ` (a0) 32 accept tib $, ` type ` (a1) ;
+  : ] ." </a>" ;
+  compiler: css: ` (c0) 32 accept tib $, ` type ` (c1) ;
+  compiler: script: ` (s0) 32 accept tib $, ` type ` (s1) ;
+}}
+
 
 : render ['] emit :devector ;
 : end ['] drop ['] emit :is save bye ;
@@ -80,5 +177,4 @@ compiler: script: ` (s0) 32 accept tib $, ` type ` (s1) ;
 : blank ; ' blank is ok
 : xxx ['] drop ['] emit :is ;
 macro: ; ` xxx ` ;; ['] [ execute ;; [
-macro: | 124 accept ;
 xxx save bye
