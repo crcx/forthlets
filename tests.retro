@@ -1,34 +1,65 @@
-: page
-  ( html
-    ( head
-      ( title ." Demo" )
-    )
-    ( body
-      id: header class: redtext ( h1 ." Hello" )
-      ( p ." This is a test." )
-    )
-  )
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| retroforth.org                                           |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| This is an example of a simple site built using my www   |
+| framework.                                               |
+|                                                          |
+| This example is gifted to the public domain; feel free   |
+| to use any parts of it you wish for any purpose.         |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+
+: /
+ ( html
+   ( head ( title ." Retro: A Forth Dialect" ) css: http://retroforth.org/style.css )
+   ( body
+     id: banner ( div ( h1 ." Retro Forth" ) )
+     id: content
+     ( div
+       ( h3 ." Welcome" )
+       ( p ." Retro is a small, minimalistic dialect of Forth" )
+       attr: border='1'
+       ( table
+         ( tr
+           ( td ( h3 ." Latest (Development)" ) )
+           ( td ( h3 ." Stable (10.1.2)" ) )
+           ( td ( h3 ." Supported Platforms" ) )
+         )
+         ( tr
+           attr: valign='top'
+           ( td
+             ( ul
+               ( li [a http://github.com/crcx/retro10/tarball/master ." Source" ] )
+               ( li [a http://retroforth.org/binaries ." Binaries and Images" ] )
+               ( li [a http://retroforth.org/RetroLanguage.html ." Manual" ] )
+             )
+           )
+           attr: valign='top'
+           ( td
+             ( ul
+               ( li [a http://s3.retroforth.org/download/10.x/retro-10.1.2.tar.gz ." Source" ] )
+               ( li [a http://s3.retroforth.org/handbook/10.1.1.html ." Manual" ] )
+             )
+           )
+           attr: valign='top'
+           ( td
+             ( ul
+               ( li ( strong ." x86:" ) ." Windows, Linux, Mac OS X, NetBSD, OpenBSD, FreeBSD, DragonFly BSD, BeOS R5, Haiku" )
+               ( li ( strong ." x86-64:" ) ." Linux" )
+               ( li ( strong ." ARM:" ) ." iPhone / iPod Touch [req. jailbreak]" )
+               ( li ( strong ." Alpha:" ) ." Linux" )
+               ( li ( strong ." PowerPC:" ) ." AIX, Mac OS X" )
+               ( li ( strong ." Java (console):" ) ." Linux, Mac OS X, jailbroke iPod Touch / iPhone" )
+               ( li ( strong ." Java (MIDP)" ) )
+               ( li ( strong ." .NET" ) )
+               ( li ( strong ." Browsers:" ) ." FireFox, Opera, Safari, Chrome" )
+               ( li ( strong ." Adobe AIR" ) )
+             )
+           )
+         )
+       )
+     )
+   )
+ )
 ;
 
-
-: demo
-( html
-  ( head
-    ( title ." RetroWeb Documentation" )
-  )
-  ( body
-    ( h1 ." RetroWeb" )
-    ( p ~ RetroWeb is an extension of Retro for creating HTML documents.
-          It features a readable and elegant Lisp-like syntax to ease writing XHTML.
-          It is quite small, very extensible and gives you the full power of Forth when you need it.
-        ~
-    ( h2 ." Current: 2.0" )
-    ( h3 ." What's new?" )
-    ( ul
-      ( li ." Rewritten for Retro 10" )
-      ( li ." Documents stored in words" )
-      ( li ." Entire web content stored in image" )
-    )
-  )
-)
-;
+end

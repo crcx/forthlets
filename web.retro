@@ -66,9 +66,13 @@ compiler: [a ` (a0) 32 accept tib $, ` type ` (a1) s" a" +tag ;
 compiler: css: ` (c0) 32 accept tib $, ` type ` (c1) ;
 : ] ." </a>" ;
 
-' drop is emit
 : render ['] emit :devector ;
-save
+: end ['] drop ['] emit :is save bye ;
 
-: page: : ` render ;
-compiler: end ` bye ` ;; ;
+: blank ; ' blank is ok
+: xxx ['] drop ['] emit :is ;
+macro: ; ` xxx ` ;; ['] [ execute ;; [
+
+
+macro: | 124 accept ;
+save bye
