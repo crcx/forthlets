@@ -36,12 +36,19 @@ system.
 
 Links:
 
-These have a special format as shown below.
+You can use two forms for links:
 
- [a URL ...code/description... ]
+1) Using the core markup parser
 
-E.g.:
+  attr: href='url' ( a .... )
 
+2) Using the concise format
+
+   [a URL ...code/description... ]
+
+E.g., these generate the same HTML:
+
+  attr: href='google.com' ( a ." Click me to go to google!" )
   [a google.com ." Click me to go to google!" ]
 
 Properties:
