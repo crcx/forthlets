@@ -51,16 +51,19 @@ compiler: attr: 32 accept tib +att ;
 
 compiler: id: 32 accept tib +id ;
 compiler: class: 32 accept tib +class ;
+
 : < ." <" ;
 : > ." >" ;
 : / ." /" ;
 : <> ` < .tag .id .class .att ` > ;
 : </> ` < ` / .tag ` > ;
+
 compiler: ( 32 accept tib +tag <> ;
 compiler: ) </> 1 #tags -! ;
+
 : (a0) ." <a href='" ;
 : (a1) ." '>" ;
-compiler: [a ` (a0) 32 accept tib $, ` type ` (a1) s" a" +tag ;
+compiler: [a ` (a0) 32 accept tib $, ` type ` (a1) ;
 : ] ." </a>" ;
 
 : (c0) ." <link rel='stylesheet' href='" ;
@@ -78,4 +81,4 @@ compiler: script: ` (s0) 32 accept tib $, ` type ` (s1) ;
 : xxx ['] drop ['] emit :is ;
 macro: ; ` xxx ` ;; ['] [ execute ;; [
 macro: | 124 accept ;
-save bye
+xxx save bye
