@@ -1,0 +1,61 @@
+Web Development Using Retro
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This is an attempt to develop a framework for building small
+websites and applications using Retro.
+
+Requirements:
+
+ - Linux, BSD, or MacOS X
+ - Perl (to run the www-server)
+ - Make (for building)
+ - Retro (console implementation. -nocurses recommended. Use
+          Mat's extended-ngaro for better performance)
+
+Features:
+
+ - Pages are stored in the image
+ - Syntax is clean
+ - Use any Retro words or constructs
+ - Word names = page names
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A simple example:
+
+: /
+ ( html
+   ( head ( title ." Demo Page" ) )
+   ( body
+     ( h1 ." Welcome to Retro" )
+     ( p ." This is a test of the WWW package." )
+   )
+ )
+;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The syntax is lispy, and is derived from Stefan's old retroweb
+system.
+
+Links:
+
+These have a special format as shown below.
+
+ [a URL ...code/description... ]
+
+E.g.:
+
+  [a google.com ." Click me to go to google!" ]
+
+Properties:
+
+  id: name
+  ( element ..... )
+
+  class: name
+  ( element ..... )
+
+CSS:
+
+  css: URL
+
+Scripts:
+
+  script: URL
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
