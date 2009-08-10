@@ -61,7 +61,6 @@ compiler: ~
   : .id
     | - |
     #id @ 0; 1- 20 * ids + ` id= $, ` type ` x 1 #id -! ;
-
 }}
 
 
@@ -100,6 +99,10 @@ compiler: ~
   : +att
     | $- |
     dup getLength 1+ push #atts @ 20 * atts + pop copy 1 #atts +! ;
+
+  : (att)
+    | - |
+    20 * atts + 32 literal, ` emit $, ` type 1 #atts -! ;
 ---reveal---
   compiler: attr:
     | "- |
@@ -107,7 +110,7 @@ compiler: ~
 
   : .att
     | - |
-    #atts @ 0; 1- 20 * atts 32 literal, ` emit $, ` type 1 #atts -! ;
+    repeat #atts @ 0; 1- (att) again ;
 }}
 
 
@@ -161,6 +164,7 @@ compiler: ~
 
   : (c0) ." <link rel='stylesheet' href='" ;
   : (c1) ." '>" ;
+
   : (s0) ." <script src='" ;
   : (s1) ." '></script>" ;
 ---reveal---
