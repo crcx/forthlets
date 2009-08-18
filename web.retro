@@ -19,8 +19,10 @@ compiler: ~
   126 accept tib $, ` type ;
 
 : array
-  | n- |
-  for 20 allot next ;
+  | xn- |
+  for dup allot next drop ;
+
+: _ 32 emit ;
 
 : <
   | - |
@@ -44,7 +46,7 @@ compiler: ~
 | This stuff is used to build the id field for HTML elements  |
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
-  create #id 0 ,    create ids 20 array
+  create #id 0 ,    create ids 20 20 array
 
   : +id
     | $- |
@@ -69,7 +71,7 @@ compiler: ~
 | This is used to build the class field for HTML elements     |
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
-  create #class 0 , create classes 20 array
+  create #class 0 , create classes 20 20 array
 
   : +class
     | $- |
@@ -94,15 +96,15 @@ compiler: ~
 | This is used to add arbitrary attributes to an HTML element |
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
-  create #atts 0 ,  create atts 20 array
+  create #atts 0 ,  create atts 128 20 array
 
   : +att
     | $- |
-    dup getLength 1+ push #atts @ 20 * atts + pop copy 1 #atts +! ;
+    dup getLength 1+ push #atts @ 128 * atts + pop copy 1 #atts +! ;
 
   : (att)
     | - |
-    20 * atts + 32 literal, ` emit $, ` type 1 #atts -! ;
+    128 * atts + 32 literal, ` emit $, ` type 1 #atts -! ;
 ---reveal---
   compiler: attr:
     | "- |
@@ -119,7 +121,7 @@ compiler: ~
 | Handle HTML tag creation.                                   |
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
-  create #tags 0 ,  create tags 20 array
+  create #tags 0 ,  create tags 20 20 array
 
   : +tag
     | - |
