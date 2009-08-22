@@ -1,4 +1,4 @@
-Web Development Using Retro
+RxWeb - Web Development Using Retro
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 This is an attempt to develop a framework for building small
 websites and applications using Retro.
@@ -8,8 +8,8 @@ Requirements:
  - Linux, BSD, or MacOS X
  - Perl (to run the www-server)
  - Make (for building)
- - Retro (console implementation. -nocurses recommended. Use
-          Mat's extended-ngaro for better performance)
+ - Retro (console implementation. -nocurses recommended.
+          Use Mat's extended-ngaro for better performance)
 
 Features:
 
@@ -17,6 +17,18 @@ Features:
  - Syntax is clean
  - Use any Retro words or constructs
  - Word names = page names
+
+
+Want to help? Here's some stuff that needs to be done:
+
+ - Better support for embedding stylesheets, scripts
+ - Optionally escape output automatically:
+   &  ->  &amp;
+   "  ->  &quot;
+   <  ->  &lt;
+   >  ->  &gt;
+   and so on...
+ - TEST!!!! (and report bugs)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A simple example:
 
@@ -57,6 +69,11 @@ Properties:
 
   class: name
   ( element ..... )
+
+  attr: ....
+  ( element ..... )
+
+When using properties, you can not have spaces in the line.
 
 CSS:
 
