@@ -1,160 +1,96 @@
-| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
-| retroforth.org                                           |
-| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
-| This is an example of a simple site built using my www   |
-| framework.                                               |
-|                                                          |
-| This example is gifted to the public domain; feel free   |
-| to use any parts of it you wish for any purpose.         |
-| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+new
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| demos of using RxWeb                                         |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 
-: 404
+| ------------------------------------------------------------ |
+| The all-important 404 page                                   |
+| ------------------------------------------------------------ |
+: /404.rw
   ( html
-    ( head
-      ( title ." Sorry, a 404 has been detected" )
-      css: /style.css
-    )
+    ( head ( title ." 404 Error: Page Not Found" ) )
     ( body
-      attr: src="http://retroforth.org/manatee.png"
-      attr: height="128"
-      attr: width="128"
-      ( img ) ( br )
-      ( h2 ." Retro Forth" )
-      attr: style="margin-top:-10px;margin-left:50px;"
-      ( hr )
-      attr: style="width:300px;margin-top:30px"
-      ( div
-        ( h1 ." Error 404" )
-        ( p ." The page you requested could not be found. Please go back" _
-            ." and try again."
-        )
+      ( h2 ." Error 404" )
+      ( p ." The page you requested could not be found. Please go back" _
+          ." and try again."
       )
     )
   )
 ;
-
 ' 404 is notfound
+| ------------------------------------------------------------ |
 
-: /
+
+
+| ------------------------------------------------------------ |
+| The main (default) page                                      |
+| ------------------------------------------------------------ |
+: /index.rw
   ( html
-    ( head
-      ( title ." Retro, A Minimalistic Forth System" )
-      css: /style.css
-    )
+    ( head ( title ." Index of RxWeb demo" ) )
     ( body
-      attr: src="http://retroforth.org/manatee.png"
-      attr: height="128"
-      attr: width="128"
-      ( img ) ( br )
-      ( h2 ." Retro Forth" )
-      attr: style="margin-top:-20px;margin-left:50px;"
-      ( hr )
-      attr: style="width:300px;margin-top:30px"
-      ( div
-        ( h4 ." Downloads" )
-        ( ul
-          ( li [a http://retroforth.org/binaries/Images/latest ." Latest Image" ] )
-          ( li [a http://retroforth.org/binaries/ ." Binaries" ] )
-          ( li [a http://retroforth.org/RetroLanguage.html ." Manual" ] )
-          ( li [a http://github.com/crcx/retro10 ." Source" ] )
-          ( li [a http://s3.retroforth.org/download/index.html ." Past Stable Releases" ] )
-        )
-        ( hr )
-        ( p ." The code and documentation for Retro is gifted by the" _
-            ." author, Charles Childers, to the Public Domain."
-        )
-        ( p ." In the event your country does not recognize my ability to so" _
-            ." dedicate it, I also grant unconditional, non-revocable" _
-            ." permission to anyone who obtains a copy of this software," _
-            ." to use, modify and to redistribute it without limitation."
-        )
-        ( hr )
-        ( h4 ." Platform Support" )
-        ( ul
-          ( li ( strong ." x86:" ) ." Windows, Linux, Mac OS X, NetBSD, OpenBSD, FreeBSD, DragonFly BSD, BeOS R5, Haiku" )
-          ( li ( strong ." x86-64:" ) ." Linux, Mac OS X" )
-          ( li ( strong ." ARM:" ) ." iTouch [after jailbreak]" )
-          ( li ( strong ." Alpha:" ) ." Linux" )
-          ( li ( strong ." PowerPC:" ) ." AIX, Mac OS X" )
-          ( li ( strong ." Java (console):" ) ." Linux, Mac OS X, iTouch" )
-          ( li ( strong ." Java (MIDP)" ) )
-          ( li ( strong ." .NET" ) )
-          ( li ( strong ." Browsers:" ) ." FireFox, Opera, Safari, Chrome" )
-          ( li ( strong ." Adobe AIR" ) )
-        )
+      ( h2 ." Welcome to RxWeb!" )
+      ( ul
+        ( li [a /page1.rw ." Page #1" ] )
+        ( li [a /page2.rw ." Page #2" ] )
+        ( li [a /page3.rw ." Page #3" ] )
+      )
+    )
+  )
+;
+: / /index.rw ;                           | map / to /index.rw |
+| ------------------------------------------------------------ |
+
+
+
+| ------------------------------------------------------------ |
+| The demo pages                                               |
+| ------------------------------------------------------------ |
+: /page1.rw
+  ( html
+    ( head ( title ." Page #1" ) )
+    ( body
+      ( h2 ." Page 1" )
+      ( p ." The following words are visible in the underlying" _
+          ." Retro dictionary:"
+      )
+      ( p words )
+    )
+  )
+;
+
+: /page2.rw
+  ( html
+    ( head ( title ." Page #2" ) )
+    ( body
+      ( h2 ." Page 2" )
+      ( p ." Below is an empty block from the editor." )
+      ( pre v )
+      ( p  [a /prev.rw ." Previous Block" ] _ ." |" _ [a /next.rw ." Next" ]
       )
     )
   )
 ;
 
+: nope ;
+: /next.rw ['] nope ['] v :is n ['] v :devector save /page2.rw ;
+: /prev.rw ['] nope ['] v :is p ['] v :devector save /page2.rw ;
 
-: /style.css
-  ~
-  body
-  {
-    background: black;
-    font-size: 16pt;
-    color: silver;
-    background-image: url('http://retroforth.org/backdrop.png');
-    background-repeat: repeat-x;
-  }
-
-  h2
-  {
-    margin-top: -60px;
-    margin-left: 80px;
-  }
-  a { color: silver; }
-  a:link { color: silver; }
-  a:visited, a:hover { color: red; }
-  ~
+: /page3.rw
+  ( html
+    ( head ( title ." Page #3" ) )
+    ( body
+      ( h2 ." Page 3" )
+      ( p ." This concludes the demo!" )
+    )
+  )
 ;
+| ------------------------------------------------------------ |
 
 
+
+| ------------------------------------------------------------ |
+| That's All                                                   |
+| ------------------------------------------------------------ |
 end
 bye
-
-</head>
-<body>
-<img src="manatee.png" height="128" width="128"/><br/>
-<h2 style="margin-top: -60px; margin-left: 80px;">Charles Childers</h2>
-  <p>I am in my mid 20's, married, and have two children.</p>
-
-  <p>My employer is <a href="http://denneyelectricsupply.com">Denney
-     Electric Supply</a>. My primary roles there are purchasing and
-     inventory management. I also assist in counter sales, web site
-     maintenance, and various shipping/receiving roles as needed.
-     My past employers include Target, A Beka Book, and Penndel
-     Hardware</p>
-
-  <p>Programming is my favorite, but not only, hobby. I have a
-     definite bias towards concatenative languages, and have been
-     using various Forth dialects for the last nine years. Along the
-     way I have become the primary developer of two concatenative
-     languages (<em>Retro</em>; a Forth system, and <em>Toka</em>; an experimental
-     attempt at building a more modern Forth for scripting purposes).</p>
-
-  <p>Most of the code I have written is intended specifically for
-     my own use, or for jobs I have undertaken, but I have begun to
-     share some small pieces via the forthlets project.</p>
-
-  <p>I do have one major project which is used by many people daily.
-     This is <em>Ent</em>, a custom email autoresponder which fetches
-     a variety of information from various sources, repackages it for
-     display on mobile email clients (such as the Peek and BlackBerry).
-     There are currently 50 services provided free of charge via Ent,
-     and work is under way to open the data sources to other developers
-     for use in their applications.</p>
-</div>
-<div style="position: absolute; bottom: 20; right: 20; background: silver; padding-left: 5px; padding-right: 5px;">
-<h4 style="border-bottom: 1px solid black; color: black">Major Projects</h4>
-<ul>
-  <li><a href="http://github.com/crcx/retro10">retro</a></li>
-  <li><a href="http://github.com/crcx/toka">toka</a></li>
-  <li><a href="http://github.com/crcx/forthlets">forthlets</a></li>
-  <li><a href="http://github.com/crcx/www">www</a></li>
-</ul>
-</div>
-
-</body>
-</html>
