@@ -1,0 +1,195 @@
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| retroforth.org                                               |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| This is the site for Retro 10.2                              |
+| It is built using RxWeb                                      |
+|                                                              |
+| This example is gifted to the public domain; feel free to    |
+| to use any parts of it you wish for any purpose.             |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+
+
+| ------------------------------------------------------------ |
+| Start with a few pieces that are helpful in building a nice  |
+| template for the actual pages.                               |
+| ------------------------------------------------------------ |
+: BOXES
+  ( div
+    ( table
+      ( tr
+        ( td
+          ( h3 [a http://retroforth.org/binaries/ ." Binaries" ] )
+          ( p ." This is all you need to get started" )
+        )
+        ( td
+          ( h3 [a http://retroforth.org/binaries/retroImage ." retroImage" ] )
+          ( p ." Grab this for the latest updates to the language" )
+        )
+        ( td
+          ( h3 [a http://retroforth.org/doc.zip ." Documentation" ] )
+          ( p ." The essentials for those seeking to learn and use Retro" )
+        )
+        ( td
+          ( h3 [a http://github.com/crcx/retro10 ." Source Code" ] )
+          ( p ." If you want to build it yourself..." )
+        )
+      )
+    )
+  )
+;
+| ------------------------------------------------------------ |
+: HEADER
+  | $- |
+  ( html
+    ( head
+      ( title type )
+      css: /style.css
+    )
+    ( body
+      attr: src="http://retroforth.org/manatee.png"
+      attr: height="128"
+      attr: width="128"
+      ( img ) ( br )
+      ( h1 ." Retro Forth" )
+      attr: style="margin-top:-10px;margin-left:50px;"
+      ( hr )
+      BOXES
+;
+| ------------------------------------------------------------ |
+: FOOTER
+    )
+  )
+;
+| ------------------------------------------------------------ |
+
+
+
+
+| ------------------------------------------------------------ |
+| The all-important 404 page                                   |
+| ------------------------------------------------------------ |
+: 404
+  s" 404 @ Retro"
+  HEADER
+  render
+  ( h2 ." Error 404" )
+  ( p ." The page you requested could not be found. Please go back" _
+      ." and try again."
+  )
+  FOOTER
+;
+' 404 is notfound
+| ------------------------------------------------------------ |
+
+
+
+| ------------------------------------------------------------ |
+| The main (default) page                                      |
+| ------------------------------------------------------------ |
+: LEGAL
+  ( p ." The code and documentation for Retro is gifted by the" _
+      ." author, Charles Childers, to the Public Domain."
+  )
+  ( p ." In the event your country does not recognize my ability to so" _
+      ." dedicate it, I also grant unconditional, non-revocable" _
+      ." permission to anyone who obtains a copy of this software," _
+      ." to use, modify and to redistribute it without limitation."
+  )
+;
+| ------------------------------------------------------------ |
+: /
+  s" Retro, A Minimalistic Forth"
+  HEADER
+  render
+  ( p ." Retro is a small, minimalistic Forth dialect capable of running" _
+      ." on all modern operating systems. It can also be used on cell phones" _
+      ." supporting Java MIDP and on most modern web browsers."
+  )
+  LEGAL
+  render
+  ( p ." Support is offered via a " [a http://groups.google.com/group/retro-10
+      ." mailing list" ] _ ." and the #retro channel on irc.freenode.net"
+  )
+  FOOTER
+;
+| ------------------------------------------------------------ |
+
+
+
+| ------------------------------------------------------------ |
+| Stylesheet                                                   |
+| This is divided into subsections for easier maintenance.     |
+| ------------------------------------------------------------ |
+: core_css
+  ~
+  body
+  {
+    background: black;
+    font-size: 14pt;
+    color: silver;
+    background-image: url('http://retroforth.org/backdrop.png');
+    background-repeat: repeat-x;
+  }
+
+  h1
+  {
+    font-family: sans-serif;
+    font-size: 24pt;
+    margin-top: -70px;
+    margin-left: 70px;
+  }
+  a { color: silver; }
+  a:link { color: silver; }
+  a:visited, a:hover { color: red; }
+  ~
+;
+| ------------------------------------------------------------ |
+: table_css
+  ~
+  td
+  {
+    width: 25%;
+    border: 1px solid white;
+    background: transparent;
+    vertical-align: top;
+  }
+
+  td:hover
+  {
+    background: darkblue;
+    color: white;
+  }
+
+  td a:hover
+  {
+    color: white;
+  }
+
+  td h3
+  {
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+  }
+
+  td p
+  {
+    text-align: center;
+    font-family: sans-serif;
+  }
+  ~
+;
+| ------------------------------------------------------------ |
+: /style.css
+  core_css
+  table_css
+;
+| ------------------------------------------------------------ |
+
+
+
+| ------------------------------------------------------------ |
+| That's All                                                   |
+| ------------------------------------------------------------ |
+end
+bye
