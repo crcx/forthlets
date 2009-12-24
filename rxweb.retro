@@ -1,4 +1,4 @@
-: | 124 accept ; immediate
+: | char: | accept ; immediate
 
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 | RxWeb                                                       |
@@ -30,35 +30,14 @@
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 | Some nifty helper functions                                 |
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
-: $,
-  | $- |
-  here 4 + literal, keepString drop ;
-
-: ~
-  | "- |
-  126 accept tib $, ` type ; compile-only
-
-: array
-  | xn- |
-  for dup allot next drop ;
-
-: _ 32 emit ;
-
-: <
-  | - |
-  ." <" ;
-
-: >
-  | - |
-  ." >" ;
-
-: /
-  | - |
-  ." /" ;
-
-: x
-  | - |
-  ." '" ;
+: $,     | $-  | here 4 + literal, keepString drop ;
+: ~      | "-  | char: ~ accept tib $, ` type ; compile-only
+: array  | xn- | for dup allot next drop ;
+: _      | -   | 32 emit ;
+: <      | -   | ." <" ;
+: >      | -   | ." >" ;
+: /      | -   | ." /" ;
+: x      | -   | ." '" ;
 
 
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
@@ -70,7 +49,7 @@
 
   : +id
     | $- |
-    dup getLength 1+ push #id @ 20 * ids + pop copy 1 #id +! ;
+    dup getLength 1+ push #id @ 20 * ids + pop copy #id ++ ;
 
   : id=
     | - |
@@ -82,7 +61,7 @@
 
   : .id
     | - |
-    #id @ 0; 1- 20 * ids + ` id= $, ` type ` x 1 #id -! ;
+    #id @ 0; 1- 20 * ids + ` id= $, ` type ` x #id -- ;
 }}
 
 
@@ -95,7 +74,7 @@
 
   : +class
     | $- |
-    dup getLength 1+ push #class @ 20 * classes + pop copy 1 #class +! ;
+    dup getLength 1+ push #class @ 20 * classes + pop copy #class ++ ;
 
   : class=
     | - |
@@ -107,7 +86,7 @@
 
   : .class
     | - |
-    #class @ 0; 1- 20 * classes + ` class= $, ` type ` x 1 #class -! ;
+    #class @ 0; 1- 20 * classes + ` class= $, ` type ` x #class -- ;
 }}
 
 
@@ -120,11 +99,11 @@
 
   : +att
     | $- |
-    dup getLength 1+ push #atts @ 128 * atts + pop copy 1 #atts +! ;
+    dup getLength 1+ push #atts @ 128 * atts + pop copy #atts ++ ;
 
   : (att)
     | - |
-    128 * atts + 32 literal, ` emit $, ` type 1 #atts -! ;
+    128 * atts + 32 literal, ` emit $, ` type #atts -- ;
 ---reveal---
   : attr:
     | "- |
@@ -145,7 +124,7 @@
 
   : +tag
     | - |
-    dup getLength 1+ push #tags @ 20 * tags + pop copy 1 #tags +! ;
+    dup getLength 1+ push #tags @ 20 * tags + pop copy #tags ++ ;
 
   : tag:
     | "- |
@@ -163,13 +142,8 @@
     | - |
     ` < ` / .tag ` > ;
 ---reveal---
-  : (
-    | - |
-    tag: <> ; compile-only
-
-  : )
-    | - |
-    </> 1 #tags -! ; compile-only
+  : (  | - | tag: <> ; compile-only
+  : )  | - | </> #tags -- ; compile-only
 }}
 
 
