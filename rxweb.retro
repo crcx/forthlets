@@ -34,10 +34,10 @@
 : ~      | "-  | char: ~ accept tib $, ` type ; compile-only
 : array  | xn- | for dup allot next drop ;
 : _      | -   | 32 emit ;
-: <      | -   | ." <" ;
-: >      | -   | ." >" ;
-: /      | -   | ." /" ;
-: x      | -   | ." '" ;
+: <      | -   | char: < emit ;
+: >      | -   | char: > emit ;
+: /      | -   | char: / emit ;
+: x      | -   | char: ' emit ;
 
 
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
