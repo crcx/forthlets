@@ -46,22 +46,11 @@
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
   create #id 0 ,    create ids 20 20 array
-
-  : +id
-    | $- |
-    dup getLength 1+ push #id @ 20 * ids + pop copy #id ++ ;
-
-  : id=
-    | - |
-    ."  id='" ;
+  : +id  | $- |  dup getLength 1+ push #id @ 20 * ids + pop copy #id ++ ;
+  : id=  | -  |  ."  id='" ;
 ---reveal---
-  : id:
-    | "- |
-    32 accept tib +id ; compile-only
-
-  : .id
-    | - |
-    #id @ 0; 1- 20 * ids + ` id= $, ` type ` x #id -- ;
+  : id:  | "- |  32 accept tib +id ; compile-only
+  : .id  | -  |  #id @ 0; 1- 20 * ids + ` id= $, ` type ` x #id -- ;
 }}
 
 
@@ -71,22 +60,11 @@
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
   create #class 0 , create classes 20 20 array
-
-  : +class
-    | $- |
-    dup getLength 1+ push #class @ 20 * classes + pop copy #class ++ ;
-
-  : class=
-    | - |
-    ."  class='" ;
+  : +class  | $- |  dup getLength 1+ push #class @ 20 * classes + pop copy #class ++ ;
+  : class=  | -  |  ."  class='" ;
 ---reveal---
-  : class:
-    | "- |
-    32 accept tib +class ; compile-only
-
-  : .class
-    | - |
-    #class @ 0; 1- 20 * classes + ` class= $, ` type ` x #class -- ;
+  : class:  | "- |  32 accept tib +class ; compile-only
+  : .class  | -  |  #class @ 0; 1- 20 * classes + ` class= $, ` type ` x #class -- ;
 }}
 
 
@@ -96,22 +74,11 @@
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
   create #atts 0 ,  create atts 128 20 array
-
-  : +att
-    | $- |
-    dup getLength 1+ push #atts @ 128 * atts + pop copy #atts ++ ;
-
-  : (att)
-    | - |
-    128 * atts + 32 literal, ` emit $, ` type #atts -- ;
+  : +att  | $- |  dup getLength 1+ push #atts @ 128 * atts + pop copy #atts ++ ;
+  : (att) | -  |  128 * atts + 32 literal, ` emit $, ` type #atts -- ;
 ---reveal---
-  : attr:
-    | "- |
-    32 accept tib +att ; compile-only
-
-  : .att
-    | - |
-    repeat #atts @ 0; 1- (att) again ;
+  : attr: | "- |  32 accept tib +att ; compile-only
+  : .att  | -  |  repeat #atts @ 0; 1- (att) again ;
 }}
 
 
@@ -121,29 +88,14 @@
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
   create #tags 0 ,  create tags 20 20 array
-
-  : +tag
-    | - |
-    dup getLength 1+ push #tags @ 20 * tags + pop copy #tags ++ ;
-
-  : tag:
-    | "- |
-    32 accept tib +tag ;
-
-  : .tag
-    | - |
-    #tags @ 1- 20 * tags + $, ` type ;
-
-  : <>
-    | - |
-    ` < .tag .id .class .att ` > ;
-
-  : </>
-    | - |
-    ` < ` / .tag ` > ;
+  : +tag | -  |  dup getLength 1+ push #tags @ 20 * tags + pop copy #tags ++ ;
+  : tag: | "- |  32 accept tib +tag ;
+  : .tag | -  |  #tags @ 1- 20 * tags + $, ` type ;
+  : <>   | -  |  ` < .tag .id .class .att ` > ;
+  : </>  | -  |  ` < ` / .tag ` > ;
 ---reveal---
-  : (  | - | tag: <> ; compile-only
-  : )  | - | </> #tags -- ; compile-only
+  : (    | -  |  tag: <> ; compile-only
+  : )    | -  |  </> #tags -- ; compile-only
 }}
 
 
@@ -163,11 +115,12 @@
 
   : (s0) ." <script src='" ;
   : (s1) ." '></script>" ;
+  : $       | "- |  32 accept tib $, ` type ; compile-only
 ---reveal---
-  : [a ` (a0) 32 accept tib $, ` type ` (a1) ; compile-only
-  : ] ." </a>" ;
-  : css: ` (c0) 32 accept tib $, ` type ` (c1) ; compile-only
-  : script: ` (s0) 32 accept tib $, ` type ` (s1) ; compile-only
+  : [a      | "- |  ` (a0) ` $ ` (a1) ; compile-only
+  : ]       | -  |  ." </a>" ;
+  : css:    | "- |  ` (c0) ` $ ` (c1) ; compile-only
+  : script: | "- |  ` (s0) ` $ ` (s1) ; compile-only
 }}
 
 
