@@ -1,85 +1,92 @@
-RxWeb - Web Development Using Retro
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-This is an attempt to develop a framework for building small
-websites and applications using Retro.
+Overview
+--------
+RxWeb is an attempt to develop a framework for building small websites and applications using Retro.
 
-Requirements:
+Requirements
+------------
 
- - Linux, BSD, or MacOS X
- - Perl (to run the www-server)
- - Make (for building)
- - Retro (console implementation. -nocurses recommended.
-          Use Mat's extended-ngaro for better performance)
+- Linux, BSD, or MacOS X
 
-Features:
+- Perl (to run the www-server)
 
- - Pages are stored in the image
- - Syntax is clean
- - Use any Retro words or constructs
- - Word names = page names
+- Make (for building)
+
+- Retro (console implementation)
 
 
+Features
+--------
+
+- Pages are stored in the image
+
+- Syntax is clean
+
+- Use any Retro words or constructs
+
+- Word names = page names
+
+
+Todo
+----
 Want to help? Here's some stuff that needs to be done:
 
- - Better support for embedding stylesheets, scripts
- - Optionally escape output automatically:
-   &  ->  &amp;
-   "  ->  &quot;
-   <  ->  &lt;
-   >  ->  &gt;
-   and so on...
- - TEST!!!! (and report bugs)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-A simple example:
+- Better support for embedding stylesheets, scripts
 
-: /
- ( html
-   ( head ( title ." Demo Page" ) )
-   ( body
-     ( h1 ." Welcome to Retro" )
-     ( p ." This is a test of the WWW package." )
-   )
- )
-;
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The syntax is lispy, and is derived from Stefan's old retroweb
-system.
+- Optionally escape output automatically:
 
-Links:
+- Testing
 
-You can use two forms for links:
+Example
+-------
 
-1) Using the core markup parser
+::
 
-  attr: href='url' ( a .... )
+   : /
+    ( html
+      ( head ( title ." Demo Page" ) )
+      ( body
+        ( h1 ." Welcome to Retro" )
+        ( p ." This is a test of the WWW package." )
+      )
+    )
+   ;
 
-2) Using the concise format
 
-   [a URL ...code/description... ]
+The syntax is lispy, and is derived from Stefan's old retroweb system.
 
-E.g., these generate the same HTML:
+Links
+-----
 
-  attr: href='google.com' ( a ." Click me to go to google!" )
-  [a google.com ." Click me to go to google!" ]
+::
 
-Properties:
+   attr: href='url' ( a .... )
 
-  id: name
-  ( element ..... )
+Properties
+----------
 
-  class: name
-  ( element ..... )
+::
 
-  attr: ....
-  ( element ..... )
+   id: name
+   ( element ..... )
+
+   class: name
+   ( element ..... )
+
+   attr: ....
+   ( element ..... )
 
 When using properties, you can not have spaces in the line.
 
-CSS:
+CSS
+---
 
-  css: URL
+::
 
-Scripts:
+   css: URL
 
-  script: URL
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Scripts
+-------
+
+::
+
+   script: URL
