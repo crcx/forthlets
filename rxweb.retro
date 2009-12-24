@@ -37,7 +37,7 @@
 : <      | -   | char: < emit ;
 : >      | -   | char: > emit ;
 : /      | -   | char: / emit ;
-: x      | -   | char: ' emit ;
+: '      | -   | char: ' emit ;
 
 
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
@@ -50,7 +50,7 @@
   : id=  | -  |  ."  id='" ;
 ---reveal---
   : id:  | "- |  32 accept tib +id ; compile-only
-  : .id  | -  |  #id @ 0; 1- 20 * ids + ` id= $, ` type ` x #id -- ;
+  : .id  | -  |  #id @ 0; 1- 20 * ids + ` id= $, ` type ` ' #id -- ;
 }}
 
 
@@ -64,7 +64,7 @@
   : class=  | -  |  ."  class='" ;
 ---reveal---
   : class:  | "- |  32 accept tib +class ; compile-only
-  : .class  | -  |  #class @ 0; 1- 20 * classes + ` class= $, ` type ` x #class -- ;
+  : .class  | -  |  #class @ 0; 1- 20 * classes + ` class= $, ` type ` ' #class -- ;
 }}
 
 
