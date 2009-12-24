@@ -31,9 +31,9 @@ new
     ( body
       ( h2 ." Welcome to RxWeb!" )
       ( ul
-        ( li [a /page1.rw ." Page #1" ] )
-        ( li [a /page2.rw ." Page #2" ] )
-        ( li [a /page3.rw ." Page #3" ] )
+        ( li attr: href="/page1.rw" ( a ." Page #1" ) )
+        ( li attr: href="/page2.rw" ( a ." Page #2" ) )
+        ( li attr: href="/page3.rw" ( a ." Page #3" ) )
       )
     )
   )
@@ -66,7 +66,10 @@ new
       ( h2 ." Page 2" )
       ( p ." Below is an empty block from the editor." )
       ( pre v )
-      ( p  [a /prev.rw ." Previous Block" ] _ ." |" _ [a /next.rw ." Next" ]
+      ( p
+        attr: href="/prev.rw" ( a ." Previous" )
+        _ ." |" _
+        attr: href="/next.rw" ( a ." Next" )
       )
     )
   )

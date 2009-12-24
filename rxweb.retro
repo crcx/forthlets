@@ -104,12 +104,8 @@
 |                                                             |
 |   css: url                                                  |
 |   script: url                                               |
-|   [a url .... ]                                             |
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
-  : (a0) ." <a href='" ;
-  : (a1) ." '>" ;
-
   : (c0) ." <link rel='stylesheet' href='" ;
   : (c1) ." '>" ;
 
@@ -117,8 +113,6 @@
   : (s1) ." '></script>" ;
   : $       | "- |  32 accept tib $, ` type ; compile-only
 ---reveal---
-  : [a      | "- |  ` (a0) ` $ ` (a1) ; compile-only
-  : ]       | -  |  ." </a>" ;
   : css:    | "- |  ` (c0) ` $ ` (c1) ; compile-only
   : script: | "- |  ` (s0) ` $ ` (s1) ; compile-only
 }}
