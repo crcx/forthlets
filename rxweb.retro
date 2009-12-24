@@ -1,4 +1,4 @@
-macro: | 124 accept ;
+: | 124 accept ; immediate
 
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 | RxWeb                                                       |
@@ -34,9 +34,9 @@ macro: | 124 accept ;
   | $- |
   here 4 + literal, keepString drop ;
 
-compiler: ~
+: ~
   | "- |
-  126 accept tib $, ` type ;
+  126 accept tib $, ` type ; compile-only
 
 : array
   | xn- |
@@ -76,9 +76,9 @@ compiler: ~
     | - |
     ."  id='" ;
 ---reveal---
-  compiler: id:
+  : id:
     | "- |
-    32 accept tib +id ;
+    32 accept tib +id ; compile-only
 
   : .id
     | - |
@@ -101,9 +101,9 @@ compiler: ~
     | - |
     ."  class='" ;
 ---reveal---
-  compiler: class:
+  : class:
     | "- |
-    32 accept tib +class ;
+    32 accept tib +class ; compile-only
 
   : .class
     | - |
@@ -126,9 +126,9 @@ compiler: ~
     | - |
     128 * atts + 32 literal, ` emit $, ` type 1 #atts -! ;
 ---reveal---
-  compiler: attr:
+  : attr:
     | "- |
-    32 accept tib +att ;
+    32 accept tib +att ; compile-only
 
   : .att
     | - |
@@ -163,13 +163,13 @@ compiler: ~
     | - |
     ` < ` / .tag ` > ;
 ---reveal---
-  compiler: (
+  : (
     | - |
-    tag: <> ;
+    tag: <> ; compile-only
 
-  compiler: )
+  : )
     | - |
-    </> 1 #tags -! ;
+    </> 1 #tags -! ; compile-only
 }}
 
 
@@ -190,10 +190,10 @@ compiler: ~
   : (s0) ." <script src='" ;
   : (s1) ." '></script>" ;
 ---reveal---
-  compiler: [a ` (a0) 32 accept tib $, ` type ` (a1) ;
+  : [a ` (a0) 32 accept tib $, ` type ` (a1) ; compile-only
   : ] ." </a>" ;
-  compiler: css: ` (c0) 32 accept tib $, ` type ` (c1) ;
-  compiler: script: ` (s0) 32 accept tib $, ` type ` (s1) ;
+  : css: ` (c0) 32 accept tib $, ` type ` (c1) ; compile-only
+  : script: ` (s0) 32 accept tib $, ` type ` (s1) ; compile-only
 }}
 
 
@@ -202,6 +202,6 @@ compiler: ~
 
 : blank ; ' blank is ok
 : xxx ['] drop ['] emit :is ;
-macro: ; ` xxx ` ;; ['] [ execute ;; [
+: ; ` xxx ` ;; ['] [ execute ;; [ immediate
 : : create ['] .word last @ d->class ! ['] render compile compiler on ;
 xxx save bye
