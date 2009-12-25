@@ -21,15 +21,12 @@
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 
 ( Helper Words )
+{{
 : toggle dup @ not swap ! ;
 : []  ( index baseaddr -- value ) + @ ;
 : []! ( value index baseaddr -- ) + ! ;
 : []^ ( index baseaddr -- addr ) + ;
-compiler: ` ( "- ) ' literal, which @ d->class @ compile ;
-: within ( xul-f ) push over pop <if >if -1 ;; then  0 ;; then 2drop 0 ;
-compiler: region: ( "- )
-   ` within -1 literal, ` =if ` drop ' compile ` ;; ` then ;
-
+: region: ( "- ) ` within ` if ` drop ' compile ` ;then ; compile-only
 
 ( Data Structures )
 create color 0 ,     ( Color flag )
@@ -38,11 +35,11 @@ create pos 0 , 0 ,   ( Last click position [x/y pair] )
 
 ( Mouse location checks )
 : update mouse 0 pos []! 1 pos []! ;
-: moved? mouse 0 pos [] =if 1 pos [] =if 0 ;; then -1 ;; then drop -1 ;
+: moved? mouse 0 pos [] =if 1 pos [] =if 0 ;then -1 ;then drop -1 ;
 
 
 ( Choose the color for the current user and switch for the next turn )
-: (which) color @ -1 =if red ;; then blue ;
+: (which) color @ -1 =if red ;then blue ;
 : player (which) color toggle ;
 
 
@@ -104,6 +101,6 @@ create pos 0 , 0 ,   ( Last click position [x/y pair] )
 
 
 ( Main application loop )
-: play clear board repeat process again ;
-' play is boot
-save bye
+---reveal---
+  : tictactoe clear board repeat process again ;
+}}
