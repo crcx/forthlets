@@ -36,7 +36,7 @@
     dup char: u =if 0 chorder:offset ! drop def.key ;then
     dup char: h =if 64 chorder:offset ! drop def.key ;then
     dup char: q =if rem:ins off
-      ['] rem.key :devector ['] rem.write :devector ;then
+    ['] rem.key :devector ['] rem.write :devector ;then
   ;
 
   : tonum   ( k-n )
@@ -66,4 +66,4 @@
       chorder.emit cr
     again ;
 }}
-ifExists edit : $$q ['] chorder.key   ['] rem.key :is ['] chorder.write ['] rem.write :is rem.in ;
+ifExists edit | : $$q ['] chorder.key   ['] rem.key :is ['] chorder.write ['] rem.write :is rem.in ; |
