@@ -48,7 +48,7 @@
   : chorder.filter ( n-nf )
     dup 8   =if TRUE ;then
     dup 10  =if TRUE ;then
-    dup 32 128 within if TRUE ;then
+    dup 31 128 within if TRUE ;then
     FALSE ;
   : chorder.emit  ( n-" )
     chorder.filter if def.emit ;then drop ;
