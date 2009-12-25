@@ -20,7 +20,7 @@
 ( Charles Childers, July 2009                               )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 
-
+{{
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 ( Array of colors, in the order we want them displayed      )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
@@ -39,25 +39,18 @@ create colors
 : (draw ( n- ) over 350 50 50 solidBox ;
 : advance) ( aa-aa ) swap 50 + swap ;
 : menu ( - )
-  0 colors 16 for @+ execute (draw advance) next 2drop
-  black 0 350 800 hline
-  white 0 0 350 800 solidBox
-;
+  0 colors 16 for @+ execute (draw advance) next 2drop ;
+: ui ( - )
+  black 0 350 800 hline white 0 0 350 800 solidBox
+  menu ;
 
 
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 ( Handle clicks within the menu area                        )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
-( Check to see if the click is within a given region)
-: region ( xul-f )
-  rot dup push
-  >if pop <if -1 ;then then
-  pop drop drop 0
-;
-
 : region: ( "- )
-   ` region -1 literal, ` =if ` drop ' compile 0 literal, ` ;then ;
-immediate
+   ` within ` if ` drop ' compile 0 literal, ` ;then ;
+compile-only
 
 : check ( -f )
   mouse 350 >if
@@ -77,4 +70,6 @@ immediate
 ( The main application loop                                 )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 : (draw) click? 0; drop check 0; drop mouse pixel ;
+---reveal---
 : draw clear menu black repeat (draw) again ;
+}}
