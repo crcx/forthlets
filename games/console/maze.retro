@@ -108,7 +108,7 @@ variable k
 ;
 
 : wall? lx @ ly @ pos @ 35 =if undo-move then ;
-: end? lx @ ly @ pos @ 90 =if put update display ." You win!" cr bye then ;
+: end? lx @ ly @ pos @ 90 =if put update display ." You win!" cr 0 execute then ;
 
 
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
@@ -119,7 +119,7 @@ variable k
 : left?    k @  char: j =if rst 1 lx -! then ;
 : right?   k @  char: l =if rst 1 lx +! then ;
 : isArrow? up? down? left? right? ;
-: quit?    k @ char: q =if bye then ;
+: quit?    k @ char: q =if 0 execute then ;
 
 : get-input kx isArrow? quit? ;
 
@@ -127,4 +127,4 @@ variable k
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 ( Main Game Loop                                            )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
-: play get 0 0 put repeat display get-input wall? end? put update again ;
+: maze get 0 0 put repeat display get-input wall? end? put update again ;

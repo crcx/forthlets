@@ -65,6 +65,6 @@
 ---reveal---
  : new blank board 64 copy ;
  : move pos dup @ push 46 ( . ) swap ! pop pos ! ;
- : play-chess ['] display ['] ok :is new ;
+ : chess ['] display ['] ok :is new ;
  : quit ['] ok :devector ;
 }}
