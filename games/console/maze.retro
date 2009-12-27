@@ -62,6 +62,7 @@ create board
 : row ." | " COLUMNS for 2dup + @ emit 32 emit 1+ next ." | " cr ;
 : display
   clear
+  fast-render
   32 emit 33 for ." -" next cr
   board 0 ROWS for row next 2drop
   32 emit 33 for ." -" next cr

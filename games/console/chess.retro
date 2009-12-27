@@ -60,7 +60,7 @@
  : --- ."   -------------------" cr ;
  : row #|...| 8 for dup @ emit 32 emit 1+ next ;
  : show 8 for row next drop reset ;
- : display clear ### --- board show --- ;
+ : display clear fast-render ### --- board show --- ;
 
 ---reveal---
  : new blank board 64 copy ;
