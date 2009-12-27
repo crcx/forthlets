@@ -5,10 +5,7 @@
 (  - ASCII graphics                                         )
 (  - 16x16 map                                              )
 (  - Collision Detection w/map items                        )
-(  - Move using the arrow keys                              )
-(                                                           )
-( This version has only been tested under OS X and may need )
-( changes to the key handlers to work on other OSes.        )
+(  - Move using ijkl keys                                   )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 ( Distributed under the Creative Commons Zero License:      )
 (                                                           )
@@ -111,16 +108,13 @@ variable k
 
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 ( Handle various keys                                       )
-( For arrow keys:                                           )
-(   OS X returns three values: 27 91 key, we use isArrow?   )
-(   to eat the first two and then deal with the last one.   )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
-: up?      k @  65 =if rst 1 ly -! then ;
-: down?    k @  66 =if rst 1 ly +! then ;
-: left?    k @  67 =if rst 1 lx +! then ;
-: right?   k @  68 =if rst 1 lx -! then ;
-: isArrow? k @  27 =if kx kx up? down? left? right? then ;
-: quit?    k @ 113 =if bye then ;
+: up?      k @  char: i =if rst 1 ly -! then ;
+: down?    k @  char: k =if rst 1 ly +! then ;
+: left?    k @  char: j =if rst 1 lx -! then ;
+: right?   k @  char: l =if rst 1 lx +! then ;
+: isArrow? up? down? left? right? ;
+: quit?    k @ char: q =if bye then ;
 
 : get-input kx isArrow? quit? ;
 
