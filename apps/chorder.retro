@@ -66,4 +66,4 @@
       chorder.emit cr
     again ;
 }}
-ifExists edit { : $$q ['] chorder.key   ['] rem.key :is ['] chorder.write ['] rem.write :is rem.in ; }
+ifDefined edit { : $$q ['] chorder.key   ['] rem.key :is ['] chorder.write ['] rem.write :is rem.in ; }
