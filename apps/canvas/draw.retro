@@ -41,8 +41,7 @@ create colors
 : menu ( - )
   0 colors 16 for @+ execute (draw advance) next 2drop ;
 : ui ( - )
-  black 0 350 800 hline white 0 0 350 800 solidBox
-  menu ;
+  clear 0 0 fh @ fw @ white solidBox menu ;
 
 
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
@@ -71,5 +70,5 @@ compile-only
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 : (draw) click? 0; drop check 0; drop mouse pixel ;
 ---reveal---
-: draw clear menu black repeat (draw) again ;
+: draw ui black repeat (draw) again ;
 }}

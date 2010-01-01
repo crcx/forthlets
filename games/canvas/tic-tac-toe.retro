@@ -20,8 +20,8 @@
 ( Charles Childers, July 2009                               )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 
-( Helper Words )
 {{
+( Helper Words )
 : toggle dup @ not swap ! ;
 : []  ( index baseaddr -- value ) + @ ;
 : []! ( value index baseaddr -- ) + ! ;
@@ -45,7 +45,7 @@ create pos 0 , 0 ,   ( Last click position [x/y pair] )
 
 ( Draw the playing field )
 : board
-  0 0 800 400 white solidBox
+  0 0 fh @ fw @ white solidBox
     0  50 150 black hline
     0 100 150 black hline
    50   0 150 black vline
@@ -99,8 +99,7 @@ create pos 0 , 0 ,   ( Last click position [x/y pair] )
   2drop
 ;
 
-
-( Main application loop )
 ---reveal---
+( Main application loop )
   : tictactoe clear board repeat process again ;
 }}
