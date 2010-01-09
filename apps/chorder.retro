@@ -21,6 +21,12 @@
 ( Luke Parrish, December 2009                               )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 
+ifNotDefined rem { bye }
+
+rem open
+
+vocab chord
+((
 {{
   : default: ' 2 + compile ; compile-only
   : def.key  ( "- ) default: key ;
@@ -66,4 +72,9 @@
       chorder.emit cr
     again ;
 }}
-ifDefined edit { : $$q ['] chorder.key   ['] rem.key :is ['] chorder.write ['] rem.write :is rem.in ; }
+))
+
+: $$q ['] chorder.key   ['] rem.key :is ['] chorder.write ['] rem.write :is rem.in ;
+
+chord shut
+rem shut
