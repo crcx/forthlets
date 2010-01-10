@@ -23,7 +23,8 @@
 
 stub edit
 
-editor open
+( expose retro editor )
+editor
 
 vocab rem
 ((
@@ -73,14 +74,12 @@ stub rem.in
   : ws    (  -  ) whitespace dup off @ later whitespace ! ;
   : match ( c-  ) s" $$_" dup push 2 + ! pop find if d->xt @ execute else drop then ;
   : edit? ( c-c ) dup 27 =if rem.in drop then ;
-  : reveal rem open ;
-  : hide   rem shut ;
   here ] dup 9 =if drop 27 then ; is (remap-keys)
   here ] bounds display ; is rem.display
   here ] rem:ins on ws input ; is rem.in
 
 ---reveal---
-  here ] ( - ) reveal repeat rem.display rem.key edit? match again ; is edit
+  here ] ( - ) rem repeat rem.display rem.key edit? match again ; is edit
   : $$i rem:l -- ;             ( i = up     )
   : $$j rem:c -- ;             ( j = left   )
   : $$k rem:l ++ ;             ( k = down   )
@@ -93,7 +92,7 @@ stub rem.in
   : $$M mid ;                  ( M = middle )
   : $$p blk -- ;               ( p = previous block )
   : $$n blk ++ ;               ( n = next block )
-  : $$z hide pop pop 2drop ;   ( z = exit REM )
+  : $$z rem pop pop 2drop ;    ( z = exit REM )
   : $$e pop pop 2drop e ;      ( e = evaluate block )
 }}
 
@@ -213,5 +212,5 @@ stub rem.in
 }}
 ))
 
-rem shut
-editor shut
+( close the vocabs )
+rem editor
