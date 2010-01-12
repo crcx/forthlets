@@ -20,7 +20,10 @@
 ( Charles Childers, July 2009                               )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 
-{{
+' canvas open
+
+vocab tic-tac-toe
+((
 ( Helper Words )
 : toggle dup @ not swap ! ;
 : []  ( index baseaddr -- value ) + @ ;
@@ -99,7 +102,10 @@ create pos 0 , 0 ,   ( Last click position [x/y pair] )
   2drop
 ;
 
----reveal---
 ( Main application loop )
-  : tictactoe clear board repeat process again ;
-}}
+))
+
+: play.tic-tac-toe ( - ) clear board repeat process again ;
+
+' tic-tac-toe shut
+' canvas shut

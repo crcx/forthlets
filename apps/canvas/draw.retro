@@ -20,6 +20,7 @@
 ( Charles Childers, July 2009                               )
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 
+' canvas open
 {{
 ( ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ )
 ( Array of colors, in the order we want them displayed      )
@@ -72,3 +73,4 @@ compile-only
 ---reveal---
 : draw ui black repeat (draw) again ;
 }}
+' canvas shut

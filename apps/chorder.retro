@@ -23,7 +23,7 @@
 
 ifNotDefined rem { bye }
 
-rem
+' rem open
 
 vocab chord
 ((
@@ -76,4 +76,5 @@ vocab chord
 
 : $$q ['] chorder.key   ['] rem.key :is ['] chorder.write ['] rem.write :is rem.in ;
 
-chord rem
+' chord shut
+' rem shut
