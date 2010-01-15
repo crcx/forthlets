@@ -121,8 +121,9 @@
 : render ['] emit :devector ;
 : end ['] drop ['] emit :is save bye ;
 
-: blank ; ' blank is ok
-: xxx ['] drop ['] emit :is ;
+stub blank
+
+: xxx ['] drop ['] emit :is ['] blank ['] ok :is ;
 : ; ` xxx ` ;; ['] [ execute ;; [ immediate
 : : create ['] .word last @ d->class ! ['] render compile compiler on ;
 xxx save bye
