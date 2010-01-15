@@ -1,0 +1,134 @@
+: | char: | accept ; immediate
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| RxWeb                                                       |
+| A Framework for Web Development using Retro                 |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| Distributed under the Creative Commons Zero License:        |
+|                                                             |
+| The person who associated a work with this document has     |
+| dedicated this work to the Commons by waiving all of his    |
+| or her rights to the work under copyright law and all       |
+| related or neighboring legal rights he or she had in the    |
+| work, to the extent allowable by law.                       |
+|                                                             |
+| Other Rights — In no way are any of the following rights    |
+| affected by CC0:                                            |
+|  * Patent or trademark rights held by the person who        |
+|    associated this document with a work.                    |
+|  * Rights other persons may have either in the work         |
+|    itself or in how the work is used, such as publicity     |
+|    or privacy rights.                                       |
+|                                                             |
+| Charles Childers, July 2009                                 |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| Note: since this uses ( ) for the markups, we use vertical  |
+| bars for comments (including stack comments) throughout.    |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+
+' editor open new save
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| Some nifty helper functions                                 |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+: $,     | $-  | here 4 + literal, keepString drop ;
+: ~      | "-  | char: ~ accept tib $, ` type ; compile-only
+: array  | xn- | for dup zallot next drop ;
+: _      | -   | 32 emit ;
+: <      | -   | char: < emit ;
+: >      | -   | char: > emit ;
+: /      | -   | char: / emit ;
+: '      | -   | char: ' emit ;
+
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| id: name                                                    |
+| This stuff is used to build the id field for HTML elements  |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  20 constant width
+  20 constant length
+  variable #id
+  create ids length width array
+  : nextid |  -a | #id @ width * ids + ;
+  : .copy  | $a- | over getLength copy ;
+  : +id    | $-  |  nextid over .copy #id ++ ;
+  : id=    | -   |  ."  id='" ;
+---reveal---
+  : id:  | "- |  32 accept tib +id ; compile-only
+  : .id  | -  |  #id @ 0; 1- 20 * ids + ` id= $, ` type ` ' #id -- ;
+}}
+
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| class: name                                                 |
+| This is used to build the class field for HTML elements     |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  create #class 0 , create classes 20 20 array
+  : +class  | $- |  dup getLength 1+ push #class @ 20 * classes + pop copy #class ++ ;
+  : class=  | -  |  ."  class='" ;
+---reveal---
+  : class:  | "- |  32 accept tib +class ; compile-only
+  : .class  | -  |  #class @ 0; 1- 20 * classes + ` class= $, ` type ` ' #class -- ;
+}}
+
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| attr: name=value                                            |
+| This is used to add arbitrary attributes to an HTML element |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  create #atts 0 ,  create atts 128 20 array
+  : +att  | $- |  dup getLength 1+ push #atts @ 128 * atts + pop copy #atts ++ ;
+  : (att) | -  |  128 * atts + 32 literal, ` emit $, ` type #atts -- ;
+---reveal---
+  : attr: | "- |  32 accept tib +att ; compile-only
+  : .att  | -  |  repeat #atts @ 0; 1- (att) again ;
+}}
+
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| tag: tag                                                    |
+| Handle HTML tag creation.                                   |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  create #tags 0 ,  create tags 20 20 array
+  : +tag | -  |  dup getLength 1+ push #tags @ 20 * tags + pop copy #tags ++ ;
+  : tag: | "- |  32 accept tib +tag ;
+  : .tag | -  |  #tags @ 1- 20 * tags + $, ` type ;
+  : <>   | -  |  ` < .tag .id .class .att ` > ;
+  : </>  | -  |  ` < ` / .tag ` > ;
+---reveal---
+  : (    | -  |  tag: <> ; compile-only
+  : )    | -  |  </> #tags -- ; compile-only
+}}
+
+
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| Special Elements                                            |
+|                                                             |
+|   css: url                                                  |
+|   script: url                                               |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+{{
+  : (c0) ." <link rel='stylesheet' href='" ;
+  : (c1) ." '>" ;
+
+  : (s0) ." <script src='" ;
+  : (s1) ." '></script>" ;
+  : $       | "- |  32 accept tib $, ` type ; compile-only
+---reveal---
+  : css:    | "- |  ` (c0) ` $ ` (c1) ; compile-only
+  : script: | "- |  ` (s0) ` $ ` (s1) ; compile-only
+}}
+
+
+: render ['] emit :devector ;
+: end ['] drop ['] emit :is save bye ;
+
+stub blank
+
+: xxx ['] drop ['] emit :is ['] blank ['] ok :is ;
+: ; ` xxx ` ;; ['] [ execute ;; [ immediate
+: : create ['] .word last @ d->class ! ['] render compile compiler on ;
+xxx save bye

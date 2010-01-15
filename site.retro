@@ -1,0 +1,99 @@
+new
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+| demos of using RxWeb                                         |
+| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
+
+| ------------------------------------------------------------ |
+| The all-important 404 page                                   |
+| ------------------------------------------------------------ |
+: /404.rw
+  ( html
+    ( head ( title ." 404 Error: Page Not Found" ) )
+    ( body
+      ( h2 ." Error 404" )
+      ( p ." The page you requested could not be found. Please go back" _
+          ." and try again."
+      )
+    )
+  )
+;
+' 404 is notfound
+| ------------------------------------------------------------ |
+
+
+
+| ------------------------------------------------------------ |
+| The main (default) page                                      |
+| ------------------------------------------------------------ |
+: /index.rw
+  ( html
+    ( head ( title ." Index of RxWeb demo" ) )
+    ( body
+      ( h2 ." Welcome to RxWeb!" )
+      ( ul
+        ( li attr: href="/page1.rw" ( a ." Page #1" ) )
+        ( li attr: href="/page2.rw" ( a ." Page #2" ) )
+        ( li attr: href="/page3.rw" ( a ." Page #3" ) )
+      )
+    )
+  )
+;
+: / /index.rw ;                           | map / to /index.rw |
+| ------------------------------------------------------------ |
+
+
+
+| ------------------------------------------------------------ |
+| The demo pages                                               |
+| ------------------------------------------------------------ |
+: /page1.rw
+  ( html
+    ( head ( title ." Page #1" ) )
+    ( body
+      ( h2 ." Page 1" )
+      ( p ." The following words are visible in the underlying" _
+          ." Retro dictionary:"
+      )
+      ( p words )
+    )
+  )
+;
+
+: /page2.rw
+  ( html
+    ( head ( title ." Page #2" ) )
+    ( body
+      ( h2 ." Page 2" )
+      ( p ." Below is an empty block from the editor." )
+      ( pre v )
+      ( p
+        attr: href="/prev.rw" ( a ." Previous" )
+        _ ." |" _
+        attr: href="/next.rw" ( a ." Next" )
+      )
+    )
+  )
+;
+
+: nope ;
+: /next.rw ['] nope ['] v :is n ['] v :devector save /page2.rw ;
+: /prev.rw ['] nope ['] v :is p ['] v :devector save /page2.rw ;
+
+: /page3.rw
+  ( html
+    ( head ( title ." Page #3" ) )
+    ( body
+      ( h2 ." Page 3" )
+      ( p ." This concludes the demo!" )
+    )
+  )
+;
+| ------------------------------------------------------------ |
+
+
+
+| ------------------------------------------------------------ |
+| That's All                                                   |
+| ------------------------------------------------------------ |
+end
+bye
