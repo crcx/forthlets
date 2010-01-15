@@ -32,7 +32,7 @@
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 : $,     | $-  | here 4 + literal, keepString drop ;
 : ~      | "-  | char: ~ accept tib $, ` type ; compile-only
-: array  | xn- | for dup allot next drop ;
+: array  | xn- | for dup zallot next drop ;
 : _      | -   | 32 emit ;
 : <      | -   | char: < emit ;
 : >      | -   | char: > emit ;
