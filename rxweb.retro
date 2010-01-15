@@ -45,9 +45,14 @@
 | This stuff is used to build the id field for HTML elements  |
 | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |
 {{
-  create #id 0 ,    create ids 20 20 array
-  : +id  | $- |  dup getLength 1+ push #id @ 20 * ids + pop copy #id ++ ;
-  : id=  | -  |  ."  id='" ;
+  20 constant width
+  20 constant length
+  variable #id
+  create ids length width array
+  : nextid |  -a | #id @ width * ids + ;
+  : .copy  | $a- | over getLength copy ;
+  : +id    | $-  |  nextid over .copy #id ++ ;
+  : id=    | -   |  ."  id='" ;
 ---reveal---
   : id:  | "- |  32 accept tib +id ; compile-only
   : .id  | -  |  #id @ 0; 1- 20 * ids + ` id= $, ` type ` ' #id -- ;
