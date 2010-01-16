@@ -1,7 +1,7 @@
 VM = ~/retro
 
 default:
-	@cp pristine/retroImage webApp
+	@cp ../clean_retroImage webApp
 	@$(VM) webApp --with rxweb.retro
 	@$(VM) webApp --with site.retro
 
